@@ -1,9 +1,7 @@
 class State:
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, node):
+        self.politician_id = node[0][0].find("name.id").text
+        self.type = node.tag
 
-    def get_politician_id(self):
-        return self.name.split(".")[0]
-    
-    def get_state_type(self):
-        return self.name.split(".")[1]
+    def key(self):
+        return self.politician_id + "." + self.type

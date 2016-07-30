@@ -2,7 +2,6 @@ import markovify
 import csv
 
 def markov_text(texts):
-    texts = texts[1:]
     markov_dict = {}
     for i in texts:
         print i
