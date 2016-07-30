@@ -1,4 +1,4 @@
-class Politician:
-    def __init__(self, id, name):
-        self.id = id
-        self.name = name
+class Politician:   
+    def __init__(self, node):
+        self.id = node.find("name.id").text
+        self.name = node.find("name").text

@@ -4,7 +4,7 @@
         {
             "name": "Python",
             "type": "python",
-            "pythonPath":"python", 
+            "pythonPath":"c:/python27/python.exe", 
             "request": "launch",
             "stopOnEntry": true,
             "externalConsole":false,
@@ -15,7 +15,9 @@
                 "WaitOnNormalExit",
                 "RedirectOutput"
             ],
-            "env": {"name":"value"}
+            "env": {
+                "PYTHONPATH":"${workspaceRoot}"
+            }
         },
         {
             "name": "Python Console App",
