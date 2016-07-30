@@ -2,18 +2,18 @@ import pykov
 
 def markov_chain(states):
     T = pykov.Matrix()
-    known_states = []
+    markov_states = []
     for i in xrange(0, len(states)-1):
-        state = (states[i], states[i+1])
-        T_list = list(T)
-        total = len([i for i in T_list if i[0] == state[0]])
-        pblty = None
-        if state not in T:
-            pblty = 1/(float(total) or 1)
-        else:
-            state_cnt = T_list.count(state)
-            pblty = state_cnt/float(total)
-        T[state] = pblty
+        markov_states.append((states[i], states[i+1],))
+
+    for i in xrange(len(markov_states)):
+        total = len([j for j in markov_states if j[0] == markov_states[i][0]]),
+        amount = markov_states.count(markov_states[i])
+        markov_states[i] += (amount/float(total[0]),)
+    for i in markov_states:
+        if (i[0], i[1]) not in T:
+            T[(i[0], i[1])] = i[2]
+
     return pykov.Chain(T)
 
 
