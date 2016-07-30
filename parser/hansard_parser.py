@@ -6,4 +6,4 @@ def parse_xml(xml):
     print root.tag
 
 if __name__=="__main__":
-    parse_xml("parliament_text.xml")
+    parse_xml("sample.xml")
