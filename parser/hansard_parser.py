@@ -1,15 +1,24 @@
 from models.politician import *
 from models.state import *
+from markov import markov_structure
 import xml.etree.ElementTree as ET
 
 class HansardParser:
     __excluded_ids = ["10000"]
 
+    __take = 20
+
     def parse(self, path_to_xml):
         xml = ET.parse(path_to_xml).getroot()
         politicians = self.__get_politicians(xml)
-        states = self.__get_states(xml)
-        print [x.get_state_type() for x in states]
+
+        print '##Corpus'
+        states = list(self.__get_states(xml))
+        print [x.name for x in states[:self.__take]]
+        
+        print '\n##Output'
+        model = markov_structure.markov_chain(states)
+        print [x.name for x in model.walk(self.__take)]
 
     def __get_politicians(self, xml):
         for node in xml.findall(".//talker"):

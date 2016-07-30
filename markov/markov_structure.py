@@ -1,10 +1,4 @@
-import markovify
-
 import pykov
-
-from models import politician, state
-
-from parser import hansard_parser
 
 def markov_chain(states):
     T = pykov.Matrix()
