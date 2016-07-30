@@ -4,15 +4,14 @@ import csv
 def markov_text(texts):
     markov_dict = {}
     for i in texts:
-        print i
-        model = markovify.Text(i[1].strip())
-        markov_dict[i[0]] = model.make_sentence()
-    return markov_dict
+        # print texts[i][0][0]
+        markov_dict[i] = markovify.Text(texts[i][0][0].replace("(", "").replace(")", ""))
 
+    return markov_dict
 
 def main():
     with open("corpus.csv", "rb") as f:
-        reader = csv.reader(f, delimiter=' ', quotechar='|')
+        reader = csv.reader(f, delimiter=' ', quotecha='|')
         markov_text([row.replace(",", "|", 1).split("|") for row in f])
 
 
