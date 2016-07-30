@@ -1,11 +1,20 @@
-import xml.etree.ElementTree as ET
-import sys
-sys.path.insert(0, "..")
 from models import politician
-def parse_xml(xml):
-    tree = ET.parse(xml)
-    root = tree.getroot()
-    print root.tag
+import xml.etree.ElementTree as ET
+
+class HansardParser:
+
+    def parse(self, path_to_xml):
+        xml = ET.parse(path_to_xml).getroot()
+        politicians = self.__get_politicians_from_xml(xml)
+        print list(politicians)
+        
+
+    def __get_politicians_from_xml(self, xml):
+        for node in xml.findall(".//talker"):
+            yield Politician(node)
+        
+
 
 if __name__=="__main__":
-    print "test"
+    parser = HansardParser()
+    parser.parse("sample.xml")
