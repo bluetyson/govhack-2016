@@ -1,0 +1,23 @@
+body { padding-top: 70px; }
+
+.panel {
+	background-color:#0099cc;
+}
+
+.message {
+	display: block;
+}
+
+.col-avatar {
+	width: 20px;
+	display: block;
+}
+
+.col-triangle {
+	width: 10px;
+	display: block;
+}
+
+.col-text {
+	display: inline-block;
+}
