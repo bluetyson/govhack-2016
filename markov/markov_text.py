@@ -4,7 +4,7 @@ import csv
 def markov_text(state_to_corpus):
     result = {}
     for item in state_to_corpus:
-        result[item] = markovify.Text(''.join(state_to_corpus.get(item)))
+        result[item] = markovify.Text(''.join(state_to_corpus.get(item)).replace("(", "").replace(")", ""))
     return result
 
 def main():
