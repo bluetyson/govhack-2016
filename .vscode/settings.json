@@ -8,5 +8,8 @@
 	// If set to auto, the value will be guessed based on the opened file.
 	"editor.insertSpaces": false,
 
-    "python.pythonPath": "c:/python27/python.exe"
+    "python.pythonPath": "c:/python27/python.exe",
+    "files.exclude": {
+        "**/*.pyc": true
+    }
 }
