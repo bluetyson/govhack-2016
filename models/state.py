@@ -1,7 +1,6 @@
-class State:
-    def __init__(self, node):
-        self.politician_id = node[0][0].find("name.id").text
-        self.type = node.tag
+from models.politician import *
 
-    def key(self):
-        return self.politician_id + "." + self.type
+class State:
+    def __init__(self, hansard_node):
+        self.politician_id = Politician(hansard_node).id
+        self.key = self.politician_id + "." + hansard_node.tag

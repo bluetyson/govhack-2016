@@ -1,15 +1,11 @@
 import markovify
 import csv
 
-def markov_text(texts):
-    markov_dict = {}
-    for i in texts:
-        # print texts[i][0][0].replace("(", "").replace(")", "")
-        markov_dict[i] = markovify.Text(texts[i][0][0].replace("(", "").replace(")", "") + ".")
-        print markov_dict[i].make_sentence(tries=50000)
-    # print texts
-
-    return markov_dict
+def markov_text(state_to_corpus):
+    result = {}
+    for item in state_to_corpus:
+        result[item] = markovify.Text(''.join(state_to_corpus.get(item)))
+    return result
 
 def main():
     with open("corpus.csv", "rb") as f:
