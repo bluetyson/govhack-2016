@@ -3,19 +3,45 @@ var markovList = markovList  || (function (window, document, undefined) {
 
 	var messages = [];
 
-	function loadMessages(){
+	function loadMessages(callback){
 		// do a GET to the API and get a list of things 
 		// in the meantime
-		messages = messages.concat(lelelel);
+		// messages = messages.concat(lelelel);
+		$.ajax({
+			method: "GET",
+			url: "http://127.0.0.1:5000/markovstuff",
+			dataType: "json",
+			crossDomain: true,
+			success: callback
+		});
+		
 		// sort them
-		messages.sort(sortByOrder);
+		//messages.sort(sortByOrder);
+	}
+
+	function setMessages(newMessages){
+		messages = messages.concat(newMessages);
 	}
 
 	function getNextMessage(){
 		//alert('Hello World');
 		// GET NEXT MESSAGE TO INPUT
 		// RETURN IT
+		var nextMessage = messages.shift();
+		while(nextMessage.content.trim().length == 0)
+		{
+			nextMessage = messages.shift();
+		}
 		return messages.shift();
+	}
+
+	function getPoliticians(){
+		ids = messages.map(function(message) { return message.politician_id; });
+		var uniqueNames = [];
+		$.each(ids, function(i, el){
+			if($.inArray(el, uniqueNames) === -1) uniqueNames.push(el);
+		});
+		return uniqueNames;
 	}
 
 	function hasMessages(){
@@ -31,7 +57,9 @@ var markovList = markovList  || (function (window, document, undefined) {
 	return {
 		LoadMessages: loadMessages,
 		GetNextMessage: getNextMessage,
-		HasMessages: hasMessages
+		GetPoliticians: getPoliticians,
+		HasMessages: hasMessages,
+		SetMessages: setMessages,
 	};
 	
 })(this, this.document);

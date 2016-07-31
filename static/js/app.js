@@ -2,11 +2,12 @@ $( document ).ready(
 	runApp
 )
 
+var count = 0;
+var politicians = {};
 
 // A SINGLE MESSAGE LOOKS LIKE THIS 
 /*
 {
-	order,
 	politicianId,
 	type,
 	content
@@ -49,8 +50,19 @@ function runApp(){
 	var middleColumn = $('#middle-column');
 	middleColumn.append(html);
 */
-	markovList.LoadMessages();
+	markovList.LoadMessages(messagesLoaded);
+}
 
+function messagesLoaded(data)
+{
+	markovList.SetMessages(data);
+	ids = markovList.GetPoliticians();
+	for(i = 0; i < ids.length; i++)
+	{
+		scrapeName(ids[i]);
+	}
+	
+	// get politicians
 	if (markovList.HasMessages())
 	{
 		setInterval(addNewMessage, 3000);
@@ -66,21 +78,43 @@ function addNewMessage()
 	}
 
 	var message = markovList.GetNextMessage();	
+	console.log(message.content);
+	console.log(message.content);
 
 	var templateName = "#message-template";
-	if (message.order % 2 == 1){
+	if (count % 2 == 1){
 		templateName = "#message-alt-template";
+	}	
+
+	if (message.politician_id == 10000)
+	{
+		return;
 	}
+
+	if (message.content.trim().length == 0)
+	{
+		return;
+	}
+
+
+	var pname = politicians[message.politician_id];
+	if (pname.indexOf("500") != -1)
+	{
+		pname = "Politician " + message.politician_id;
+	}
+
+
 
 	var source   = $(templateName).html();
 	var template = Handlebars.compile(source);
-	var context = message
+	var context = {politician_id : message.politician_id, content : message.content, name : pname, type : message.type };
 	var html    = template(context);
 	var middleColumn = $('#middle-column');
 	middleColumn.append(html);
-	var newMessageElement = $('#message-' + message.order);
+	var newMessageElement = $('#message-' + count);
 	newMessageElement.hide();
 	newMessageElement.slideDown(400);
+	count++;
 }
 
 function appendMessageDiv(message)
@@ -93,18 +127,18 @@ function appendMessageDiv(message)
 	var middleColumn = $('#middle-column');
 }
 
-function scrapeName()
+function scrapeName(id)
 {
 	$.ajax({
 		method: "GET",
-		url: "http://www.aph.gov.au/Senators_and_Members/Parliamentarian?MPID=885",
+		url: "http://www.aph.gov.au/Senators_and_Members/Parliamentarian?MPID="+id,
 		dataType: "text",
 		crossDomain: true,
 		success: function(data) { 
 			var namergx = /<h1>([^\<]*)<\/h1>/;
 			var bodyHtml = data;//"<h1><a href=fffff></a></h1><h1>Hon Malcolm Turnbull</h1>";
 			var match = namergx.exec(bodyHtml); 
-			alert(match[1]);
+			politicians[id] = match[1].replace("Hon ", "").replace(" MP","");
 		}
 	});
 }
