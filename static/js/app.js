@@ -92,3 +92,19 @@ function appendMessageDiv(message)
 	var html    = template(context);
 	var middleColumn = $('#middle-column');
 }
+
+function scrapeName()
+{
+	$.ajax({
+		method: "GET",
+		url: "http://www.aph.gov.au/Senators_and_Members/Parliamentarian?MPID=885",
+		dataType: "text",
+		crossDomain: true,
+		success: function(data) { 
+			var namergx = /<h1>([^\<]*)<\/h1>/;
+			var bodyHtml = data;//"<h1><a href=fffff></a></h1><h1>Hon Malcolm Turnbull</h1>";
+			var match = namergx.exec(bodyHtml); 
+			alert(match[1]);
+		}
+	});
+}
