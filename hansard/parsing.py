@@ -13,7 +13,7 @@ class HansardParser:
         hansard_nodes = self.get_hansard_nodes(xml)
         state_to_corpus = [x.get_state_and_corpus() for x in hansard_nodes]
         states = [x[0] for x in state_to_corpus]
-        state_strings = [x.key for x in states]
+        states_strings = [x.key for x in states]
         generated_states = markov_structure.markov_chain(states_strings).walk(len(states_strings), states[0])
         generated_output = markov_text.markov_text(self.aggregate_state_to_corpus(state_to_corpus))
 

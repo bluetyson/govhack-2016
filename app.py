@@ -1,11 +1,11 @@
 from flask import Flask, render_template, jsonify
 
-from parser.hansard_parser import HansardParser
+from hansard.parsing import HansardParser
 
 app = Flask(__name__)
 
 
-HANSARD_DATA = "parser/sample.xml"
+HANSARD_DATA = "sample.xml"
 
 @app.route("/markovstuff")
 def get_markov():
