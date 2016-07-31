@@ -6,3 +6,4 @@ markovify==0.4.0
 MarkupSafe==0.23
 Unidecode==0.4.19
 Werkzeug==0.11.10
+git+git://github.com/riccardoscalco/Pykov@master
