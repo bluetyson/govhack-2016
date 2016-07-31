@@ -13,9 +13,9 @@ def get_markov():
     json_dict = []
     for i in markov_stuff:
         tmp = {}
-        tmp["type"] = "talk"
+        tmp["type"] = i.type
         tmp["content"] = i.content
-        tmp["politician_id"] = -1
+        tmp["politician_id"] = i.state.politician_id
         json_dict.append(tmp)
 
     return jsonify(json_dict)
