@@ -71,13 +71,17 @@ body {
 
 .messageContent {
 	background-color: #a3e1fa;
-	padding: 8px;
+	padding: 5px 10px 8px 10px;
 }
 
 .alt > div > .messageContent {
 	background-color: #faa3a3;
-	padding: 8px;
 }
+
 .alt > div > a > .avatar-crop {
 	border-color: #faa3a3;
+}
+
+.alt > div > .label {
+	text-align: right;
 }
