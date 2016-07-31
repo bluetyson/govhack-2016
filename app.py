@@ -1,6 +1,24 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
+
+from parser.hansard_parser import HansardParser
 
 app = Flask(__name__)
+
+
+HANSARD_DATA = "parser/sample.xml"
+
+@app.route("/markovstuff")
+def get_markov():
+    markov_stuff = HansardParser().parse(HANSARD_DATA)
+    json_dict = []
+    for i in markov_stuff:
+        tmp = {}
+        tmp["type"] = "talk"
+        tmp["content"] = i.content
+        tmp["politician_id"] = -1
+        json_dict.append(tmp)
+
+    return jsonify(json_dict)
 
 @app.route("/")
 def index():
