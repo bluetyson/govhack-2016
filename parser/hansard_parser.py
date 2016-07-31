@@ -6,6 +6,8 @@ from markov import markov_structure, markov_text
 import xml.etree.ElementTree as ET
 from collections import OrderedDict
 
+import random
+
 class HansardParser:
     __excluded_ids = ["10000"]
 
@@ -22,7 +24,7 @@ class HansardParser:
             tmp = next((x for x in states if state == x.key), None)
             gen_strings = []
             model = generated_output[tmp]
-            message = Message(tmp, "".join([model.make_sentence() for i in xrange(10)]))
+            message = Message(tmp, "".join([model.make_sentence() or " " for i in xrange(random.randint(2, 20))]))
             if message.content:
                 yield message
 
